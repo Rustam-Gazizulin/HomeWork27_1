@@ -61,7 +61,7 @@ class AdView(View):
             author=data['author'],
             price=data['price'],
             description=data['description'],
-            is_published=data['is_published']
+            is_published=data['is_published'] if 'is_published' in data else False
         )
         return JsonResponse(
             {"id": new_ad.id,
