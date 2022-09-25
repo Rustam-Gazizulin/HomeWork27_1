@@ -3,23 +3,27 @@ import json
 
 DATA_ADS = 'ads.csv'
 JSON_ADS = 'ads.json'
-CAT_ADS = 'categories.csv'
-CAT_JSON = 'categories.json'
+DATA_CAT = 'categories.csv'
+JSON_CAT = 'categories.json'
 
 
 def convert_file(csv_file, json_file, model_name):
     result = []
-    with open(csv_file, encoding='utf-8') as f:
-        for row in csv.DictReader(f):
-            to_add = {'model': model_name, 'pk': int(row['Id'] if 'Id' in row else row['Id'])}
-            if 'Id' in row['Id']:
+    with open(csv_file, encoding='utf-8') as csv_f:
+        for row in csv.DictReader(csv_f):
+            to_add = {'model': model_name, 'pk': int(row['Id'] if 'Id' in row else row['id'])}
+            if 'Id' in row:
                 del row['Id']
             else:
-                del row['Id']
-            if 'is_published' in row:
-                if row['is_published'] ==
+                del row['id']
 
-            if ''
+            if 'is_published' in row:
+                if row['is_published'] == 'TRUE':
+                    row['is_published'] = True
+                else:
+                    row['is_published'] = False
+            if 'price' in row:
+                row['price'] = int(row['price'])
             to_add['fields'] = row
             result.append(to_add)
 
@@ -27,5 +31,5 @@ def convert_file(csv_file, json_file, model_name):
         json_f.write(json.dumps(result, ensure_ascii=False))
 
 
-convert_file(CAT_ADS, CAT_JSON, 'ads.category')
-convert_file(DATA_ADS, JSON_ADS, 'ads.category')
+convert_file(DATA_CAT, JSON_CAT, 'ads.category')
+convert_file(DATA_ADS, JSON_ADS, 'ads.ad')
