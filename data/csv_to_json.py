@@ -3,7 +3,7 @@ import json
 
 DATA_ADS = 'ads.csv'
 JSON_ADS = 'ads.json'
-DATA_CAT = 'categories.csv'
+DATA_CAT = 'category.csv'
 JSON_CAT = 'categories.json'
 
 
