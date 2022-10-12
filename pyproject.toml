@@ -9,6 +9,8 @@ packages = [{include = "homework27_1"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.1.1"
+psycopg2-binary = "^2.9.4"
+Pillow = "^9.2.0"
 
 
 [build-system]
