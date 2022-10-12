@@ -1,3 +1,41 @@
 from django.db import models
 
-# Create your models here.
+
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    lat = models.DecimalField(max_digits=8, decimal_places=6)
+    lng = models.DecimalField(max_digits=8, decimal_places=6)
+
+    class Meta:
+        verbose_name = 'Местоположение'
+        verbose_name_plural = 'Местоположения'
+
+    def __str__(self):
+        return self.name
+
+
+class UserRoles:
+    USER = 'member'
+    ADMIN = 'admin'
+    MODERATOR = 'moderator'
+    choices = (
+        ("Пользователь", USER),
+        ("Админ", ADMIN),
+        ("Модератор", MODERATOR),
+    )
+
+
+class User(models.Model):
+    first_name = models.CharField(max_length=60)
+    last_name = models.CharField(max_length=60)
+    username = models.CharField(max_length=40, unique=True)
+    password = models.CharField(max_length=30)
+    role = models.CharField(choices=UserRoles.choices, default='member', max_length=20)
+    location = models.ManyToManyField(Location)
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    def __str__(self):
+        return f'Пользователь {self.first_name} {self.last_name}'
