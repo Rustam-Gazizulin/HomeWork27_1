@@ -1,12 +1,16 @@
 import json
 
+from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 
 from ads.models import Category, Ad
+from avito import settings
+from users.models import User
 
 
 def root(request):
@@ -74,39 +78,89 @@ class CategoryDeleteView(DeleteView):
         return JsonResponse({'file delete': 'Ok'}, status=204)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class AdView(View):
-    def get(self, request):
-        all_ads = Ad.objects.all()
+class AdListView(ListView):
+    model = Ad
+    queryset = Ad.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        super().get(self, *args, **kwargs)
+        self.object_list = self.object_list.order_by("-price")
+        paginator = Paginator(object_list=self.object_list, per_page=settings.TOTAL_ON_PAGE)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
         result = []
-        for ad in all_ads:
+        for ad in page_obj:
             result.append(
                 {"id": ad.id,
                  "name": ad.name,
-                 "author": ad.author,
+                 "author": ad.author.username,
+                 "category": ad.category.name if ad.category else 'Без категории',
                  "price": ad.price,
                  "description": ad.description,
-                 "is_published": ad.is_published})
-        return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+                 "is_published": ad.is_published,
+                 "image": ad.image.url
+                 })
+        return JsonResponse({'ads': result, 'page': page_obj.number, 'total': page_obj.paginator.count}, safe=False,
+                            json_dumps_params={'ensure_ascii': False})
 
-    def post(self, request):
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AdCreateView(View):
+    model = Ad
+    fields = ['name', 'author', 'price', 'description', 'is_published', 'category']
+
+    def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
+
+        author = get_object_or_404(User, data['author_id'])
+        category = get_object_or_404(Category, data['category_id'])
+
         new_ad = Ad.objects.create(
             name=data['name'],
-            author=data['author'],
+            author=author,
+            category=category,
             price=data['price'],
             description=data['description'],
             is_published=data['is_published'] if 'is_published' in data else False
         )
+        new_ad.image = request.FILES.get('image')
+        new_ad.save()
+
         return JsonResponse(
             {"id": new_ad.id,
              "name": new_ad.name,
-             "author": new_ad.author,
+             "author": new_ad.author.username,
+             "category": new_ad.category.name,
              "price": new_ad.price,
              "description": new_ad.description,
-             "is_published": new_ad.is_published
+             "is_published": new_ad.is_published,
+             "image": new_ad.image.url
              },
             safe=False,
+            json_dumps_params={'ensure_ascii': False})
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AdUploadImageView(UpdateView):
+    model = Ad
+    fields = ['image']
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.image = request.FILES.get('image')
+        self.object.save()
+
+        return JsonResponse(
+            {"id": self.object.id,
+             "name": self.object.name,
+             "author": self.object.author.username,
+             "category": self.object.category.name,
+             "price": self.object.price,
+             "description": self.object.description,
+             "is_published": self.object.is_published,
+             "image": self.object.image.url
+             }, safe=False,
             json_dumps_params={'ensure_ascii': False})
 
 
@@ -123,3 +177,4 @@ class AdDetailView(DetailView):
              "description": ad.description,
              "is_published": ad.is_published}, safe=False,
             json_dumps_params={'ensure_ascii': False})
+
