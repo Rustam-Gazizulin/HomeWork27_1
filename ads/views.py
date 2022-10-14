@@ -106,15 +106,15 @@ class AdListView(ListView):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class AdCreateView(View):
+class AdCreateView(CreateView):
     model = Ad
     fields = ['name', 'author', 'price', 'description', 'is_published', 'category']
 
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
 
-        author = get_object_or_404(User, data['author_id'])
-        category = get_object_or_404(Category, data['category_id'])
+        author = get_object_or_404(User, id=data['author_id'])
+        category = get_object_or_404(Category, id=data['category_id'])
 
         new_ad = Ad.objects.create(
             name=data['name'],
