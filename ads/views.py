@@ -168,7 +168,7 @@ class AdDetailView(DetailView):
         return JsonResponse(
             {"id": ad.id,
              "name": ad.name,
-             "author": ad.author,
+
              "price": ad.price,
              "description": ad.description,
              "is_published": ad.is_published}, safe=False,
