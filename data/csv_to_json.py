@@ -1,10 +1,15 @@
 import csv
 import json
 
-DATA_ADS = 'ads.csv'
+DATA_ADS = 'ds.csv'
 JSON_ADS = 'ads.json'
+
 DATA_CAT = 'category.csv'
 JSON_CAT = 'categories.json'
+
+DATA_LOC = 'location.csv'
+JSON_LOC = 'locations.json'
+
 
 
 def convert_file(csv_file, json_file, model_name):

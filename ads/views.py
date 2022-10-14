@@ -24,21 +24,12 @@ class CategoryView(View):
         result = []
         for cat in categories:
             result.append({"id": cat.id, "name": cat.name})
-        return JsonResponse(result, safe=False, json_dumps_params={'ensure_ascii': False})
+        return JsonResponse(result, safe=False)
 
     def post(self, request):
         data = json.loads(request.body)
         new_category = Category.objects.create(name=data['name'])
         return JsonResponse({'id': new_category.id, 'name': new_category.name}, safe=False,
-                            json_dumps_params={'ensure_ascii': False})
-
-
-class CategoryDetailView(DetailView):
-    model = Category
-
-    def get(self, request, *args, **kwargs):
-        cat = self.get_object()
-        return JsonResponse({'id': cat.id, 'name': cat.name}, safe=False,
                             json_dumps_params={'ensure_ascii': False})
 
 
@@ -78,6 +69,15 @@ class CategoryDeleteView(DeleteView):
         return JsonResponse({'file delete': 'Ok'}, status=204)
 
 
+class CategoryDetailView(DetailView):
+    model = Category
+
+    def get(self, request, *args, **kwargs):
+        cat = self.get_object()
+        return JsonResponse({'id': cat.id, 'name': cat.name}, safe=False,
+                            json_dumps_params={'ensure_ascii': False})
+
+
 class AdListView(ListView):
     model = Ad
     queryset = Ad.objects.all()
@@ -102,7 +102,6 @@ class AdListView(ListView):
                  })
         return JsonResponse({'ads': result, 'page': page_obj.number, 'total': page_obj.paginator.count}, safe=False,
                             json_dumps_params={'ensure_ascii': False})
-
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -177,4 +176,3 @@ class AdDetailView(DetailView):
              "description": ad.description,
              "is_published": ad.is_published}, safe=False,
             json_dumps_params={'ensure_ascii': False})
-
