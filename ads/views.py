@@ -123,9 +123,6 @@ class AdCreateView(CreateView):
             description=data['description'],
             is_published=data['is_published'] if 'is_published' in data else False
         )
-        new_ad.image = request.FILES.get('image')
-        new_ad.save()
-
         return JsonResponse(
             {"id": new_ad.id,
              "name": new_ad.name,
