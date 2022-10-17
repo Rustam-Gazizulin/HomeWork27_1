@@ -20,7 +20,7 @@ class Ad(models.Model):
     price = models.PositiveIntegerField()
     description = models.TextField(null=True)
     is_published = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='pictures', null=True, blank=True)
+    image = models.ImageField(upload_to='pictures/', null=True, blank=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, related_name='ads')
 
     class Meta:

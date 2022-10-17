@@ -98,7 +98,7 @@ class AdListView(ListView):
                  "price": ad.price,
                  "description": ad.description,
                  "is_published": ad.is_published,
-                 "image": ad.image.url
+                 "image": ad.image.url if ad.image else None
                  })
         return JsonResponse({'ads': result, 'page': page_obj.number, 'total': page_obj.paginator.count}, safe=False,
                             json_dumps_params={'ensure_ascii': False})
@@ -155,7 +155,7 @@ class AdUploadImageView(UpdateView):
              "price": self.object.price,
              "description": self.object.description,
              "is_published": self.object.is_published,
-             "image": self.object.image.url
+             "image": self.object.image.url if self.object.image else None
              }, safe=False,
             json_dumps_params={'ensure_ascii': False})
 
