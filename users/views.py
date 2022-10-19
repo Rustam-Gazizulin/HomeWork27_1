@@ -5,9 +5,11 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView
+from rest_framework.generics import CreateAPIView
 
 from avito import settings
 from users.models import User, Location
+from users.serializers import UserCreateSerializer
 
 
 class UserListView(ListView):
@@ -35,30 +37,8 @@ class UserListView(ListView):
                             json_dumps_params={'ensure_ascii': False})
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class UserCreateView(CreateView):
-    model = User
-    fields = ['username', 'password', 'first_name', 'last_name', 'role', 'locations']
+class UserCreateView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserCreateSerializer
 
-    def post(self, request, *args, **kwargs):
-        data = json.loads(request.body)
-
-        user = User.objects.create(
-            username=data['username'],
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            role=data['role'],
-            password=data['password'],
-        )
-        for loc in data['locations']:
-            location, _ = Location.objects.get_or_create(name=loc)
-            user.location.add(location)
-        return JsonResponse(
-            {"id": user.id,
-             "username": user.username,
-             "first_name": user.first_name,
-             "last_name": user.last_name,
-             "role": user.role,
-             "locations": [str(u) for u in user.location.all()]
-             })
 

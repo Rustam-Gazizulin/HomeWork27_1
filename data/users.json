@@ -7,8 +7,9 @@
       "last_name": "Никифоров",
       "username": "pnikifirov",
       "password": "gZvptL",
-      "role": "member"
-
+      "role": "member",
+      "age": 21,
+      "location_id": 1
     }
   },
   {
@@ -19,8 +20,9 @@
       "last_name": "Игнатьева",
       "username": "abiba_1341",
       "password": "4fVqL2",
-      "role": "moderator"
-
+      "role": "moderator",
+      "age": 24,
+      "location_id": 3
     }
   },
   {
@@ -31,8 +33,9 @@
       "last_name": "Сысоев",
       "username": "vanya777",
       "password": "o535pj",
-      "role": "admin"
-
+      "role": "admin",
+      "age": 29,
+      "location_id": 8
     }
   },
   {
@@ -43,8 +46,9 @@
       "last_name": "Беркутова",
       "username": "orlanfree",
       "password": "d49rSO",
-      "role": "moderator"
-
+      "role": "moderator",
+      "age": 19,
+      "location_id": 10
     }
   },
   {
@@ -55,8 +59,9 @@
       "last_name": "Иванова",
       "username": "galina_ivanova",
       "password": "wCqlVE",
-      "role": "member"
-
+      "role": "member",
+      "age": 41,
+      "location_id": 2
     }
   },
   {
@@ -67,7 +72,9 @@
       "last_name": "Бойченко",
       "username": "petr_bo",
       "password": "xuR2jf",
-      "role": "member"
+      "role": "member",
+      "age": 37,
+      "location_id": 4
     }
   },
   {
@@ -78,8 +85,9 @@
       "last_name": "Петров",
       "username": "nikitapro",
       "password": "gzP4vR",
-      "role": "member"
-
+      "role": "member",
+      "age": 26,
+      "location_id": 7
     }
   },
   {
@@ -90,8 +98,9 @@
       "last_name": "Петушок",
       "username": "riverna",
       "password": "zo0rj6",
-      "role": "member"
-
+      "role": "member",
+      "age": 24,
+      "location_id": 5
     }
   },
   {
@@ -102,8 +111,9 @@
       "last_name": "Ибрагимова",
       "username": "gulnara321",
       "password": "daMocL",
-      "role": "moderator"
-
+      "role": "moderator",
+      "age": 22,
+      "location_id": 9
     }
   },
   {
@@ -114,8 +124,9 @@
       "last_name": "Зайка",
       "username": "dragon84",
       "password": "sasha123456",
-      "role": "member"
-
+      "role": "member",
+      "age": 35,
+      "location_id": 6
     }
   }
 ]
