@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -25,11 +26,7 @@ class UserRoles:
     )
 
 
-class User(models.Model):
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
-    username = models.CharField(max_length=40, unique=True)
-    password = models.CharField(max_length=30)
+class User(AbstractUser):
     role = models.CharField(choices=UserRoles.choices, default='member', max_length=20)
     location = models.ManyToManyField(Location)
     age = models.PositiveSmallIntegerField(null=True)
@@ -39,4 +36,4 @@ class User(models.Model):
         verbose_name_plural = 'Пользователи'
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f"{self.first_name} {self.last_name}"

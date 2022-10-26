@@ -33,8 +33,8 @@ def convert_file(csv_file, json_file, model_name):
                 row['price'] = int(row['price'])
             if 'age' in row:
                 row['age'] = int(row['age'])
-            if 'location_id' in row:
-                row['location_id'] = int(row['location_id'])
+            if 'location' in row:
+                row['location'] = [int(row['location'])]
             if 'author_id' in row:
                 row['author_id'] = int(row['author_id'])
             if 'category_id' in row:
