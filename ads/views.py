@@ -6,16 +6,19 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from ads.models import Category, Ad, Selection
-from ads.permissions import IsOwnerOrStaff
+from ads.permissions import IsOwnerSelection, IsOwnerAdOrStaff
 from ads.serializers import AdListSerializer, AdDetailSerializer, SelectionCreateSerializer, SelectionListSerializer, \
-    SelectionDetailSerializer
+    SelectionDetailSerializer, AdUpdateSerializer
 from users.models import User
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def root(request):
     return JsonResponse({"status": "Ok"})
 
@@ -138,6 +141,18 @@ class AdCreateView(CreateView):
             json_dumps_params={'ensure_ascii': False})
 
 
+class AdUpdateView(UpdateAPIView):
+    queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated, IsOwnerAdOrStaff]
+    serializer_class = AdUpdateSerializer
+
+
+class AdDeleteView(DestroyAPIView):
+    queryset = Ad.objects.all()
+    permission_classes = [IsAuthenticated, IsOwnerAdOrStaff]
+    serializer_class = AdUpdateSerializer
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 class AdUploadImageView(UpdateView):
     model = Ad
@@ -176,7 +191,7 @@ class SelectionCreateView(CreateAPIView):
 class SelectionUpdateView(UpdateAPIView):
     queryset = Selection.objects.all()
     serializer_class = SelectionCreateSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrStaff]
+    permission_classes = [IsAuthenticated, IsOwnerSelection]
 
 
 class SelectionListView(ListAPIView):
@@ -193,6 +208,3 @@ class SelectionDeleteView(DestroyAPIView):
     queryset = Selection.objects.all()
     serializer_class = SelectionCreateSerializer
     permission_classes = [IsAuthenticated]
-
-
-

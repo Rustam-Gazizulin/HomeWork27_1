@@ -18,6 +18,15 @@ class AdDetailSerializer(serializers.ModelSerializer):
         model = Ad
         fields = '__all__'
 
+        
+class AdUpdateSerializer(serializers.ModelSerializer):
+    author = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
+    category = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
+
+    class Meta:
+        model = Ad
+        fields = '__all__'
+
 
 class SelectionCreateSerializer(serializers.ModelSerializer):
     class Meta:
