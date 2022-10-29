@@ -20,17 +20,18 @@ from django.urls import path, include
 from rest_framework import routers
 
 from ads import views
+from ads.views import CategoryViewSet
 from users.views import LocationViewSet
 
 router = routers.SimpleRouter()
 router.register('location', LocationViewSet)
+router.register('category', CategoryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('', views.root),
 
-    path('cat/', include('ads.urls.cat_urls')),
     path('ad/', include('ads.urls.ad_urls')),
     path('selection/', include('ads.urls.selection_urls')),
 
