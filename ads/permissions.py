@@ -19,4 +19,3 @@ class IsOwnerAdOrStaff(permissions.BasePermission):
         if request.user == obj.owner or request.user.role in [UserRoles.MODERATOR, UserRoles.ADMIN]:
             return True
         return False
-

@@ -1,18 +1,3 @@
-"""avito URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import to include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -20,19 +5,19 @@ from django.urls import path, include
 from rest_framework import routers
 
 from ads import views
-from ads.views import CategoryViewSet
+from ads.views import CategoryViewSet, AdViewSet
 from users.views import LocationViewSet
 
 router = routers.SimpleRouter()
-router.register('location', LocationViewSet)
-router.register('category', CategoryViewSet)
+router.register('loc', LocationViewSet)
+router.register('cat', CategoryViewSet)
+router.register('ad', AdViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('', views.root),
 
-    path('ad/', include('ads.urls.ad_urls')),
     path('selection/', include('ads.urls.selection_urls')),
 
     path('user/', include('users.urls')),

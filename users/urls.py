@@ -10,7 +10,7 @@ urlpatterns = [
     path('create/', views.UserCreateView.as_view()),
     path('delete/<int:pk>/', views.UserDeleteView.as_view()),
 
-    # Урлы аутентификации
+    #  Урлы аутентификации
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
 ]
