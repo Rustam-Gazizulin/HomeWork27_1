@@ -9,6 +9,7 @@
       "password": "gZvptL",
       "role": "member",
       "age": 21,
+      "email": "qwerty@mail.ru",
       "location": [
         1
       ]
@@ -24,6 +25,7 @@
       "password": "4fVqL2",
       "role": "moderator",
       "age": 24,
+      "email": "qwerty1@mail.ru",
       "location": [
         3
       ]
@@ -39,6 +41,7 @@
       "password": "o535pj",
       "role": "admin",
       "age": 29,
+      "email": "qwerty2@mail.ru",
       "location": [
         8
       ]
@@ -54,6 +57,7 @@
       "password": "d49rSO",
       "role": "moderator",
       "age": 19,
+      "email": "qwerty3@mail.ru",
       "location": [
         10
       ]
@@ -69,6 +73,7 @@
       "password": "wCqlVE",
       "role": "member",
       "age": 41,
+      "email": "qwerty4@mail.ru",
       "location": [
         2
       ]
@@ -84,6 +89,7 @@
       "password": "xuR2jf",
       "role": "member",
       "age": 37,
+      "email": "qwerty5@mail.ru",
       "location": [
         4
       ]
@@ -99,6 +105,7 @@
       "password": "gzP4vR",
       "role": "member",
       "age": 26,
+      "email": "qwerty6@mail.ru",
       "location": [
         7
       ]
@@ -114,6 +121,7 @@
       "password": "zo0rj6",
       "role": "member",
       "age": 24,
+      "email": "qwerty7@mail.ru",
       "location": [
         5
       ]
@@ -129,6 +137,7 @@
       "password": "daMocL",
       "role": "moderator",
       "age": 22,
+      "email": "qwerty8@mail.ru",
       "location": [
         9
       ]
@@ -144,6 +153,7 @@
       "password": "sasha123456",
       "role": "member",
       "age": 35,
+      "email": "qwerty9@mail.ru",
       "location": [
         6
       ]
