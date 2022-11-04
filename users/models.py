@@ -9,7 +9,7 @@ USER_MIN_AGE = 9
 
 
 def birth_date_validator(value):
-    diff_years = relativedelta(date.today(), value).year
+    diff_years = relativedelta(date.today(), value).years
     if diff_years < USER_MIN_AGE:
         raise ValidationError('User is underage')
     return value
