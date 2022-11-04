@@ -16,4 +16,3 @@ def api_client(db, user):
     token = RefreshToken.for_user(user)
     client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
     return client
-
