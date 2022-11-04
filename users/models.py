@@ -15,7 +15,6 @@ def birth_date_validator(value):
     return value
 
 
-
 class Location(models.Model):
     name = models.CharField(max_length=100)
     lat = models.DecimalField(max_digits=8, decimal_places=6, null=True)
@@ -46,9 +45,9 @@ class User(AbstractUser):
     age = models.PositiveSmallIntegerField(null=True)
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=150, null=True)
-    username = models.CharField(max_length=20, null=True, unique=True)
+    username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=200)
-    birth_date = models.DateField(validators=[birth_date_validator], null=True)
+    birth_date = models.DateField(validators=[birth_date_validator])
     email = models.EmailField(unique=True)
 
     class Meta:
